@@ -4,11 +4,29 @@ import re
 
 directions = np.array(re.split('[\n \s]', data), dtype=np.str_)
 
-strings = directions[::2]
-values = directions[1::2].astype(np.int8)
+instruction = directions[::2]
+amount = directions[1::2].astype(np.int8)
 
-distance_forward = np.sum(values[strings == "forward"])
-distance_down = np.sum(values[strings == "down"])
-distance_up = np.sum(values[strings == "up"])
+forward = instruction == "forward"
+down = instruction == "down"
+up = instruction == "up"
 
-print(distance_forward * (distance_down - distance_up))
+# Part 1
+distance_forward = np.sum(amount[forward])
+distance_down = np.sum(amount[down])
+distance_up = np.sum(amount[up])
+
+change_in_depth = distance_down - distance_up
+print(distance_forward * change_in_depth)
+
+# Part 2
+aim = amount.copy()
+
+aim[instruction == "up"] = aim[up] * -1
+aim[instruction == "forward"] = 0
+
+aim_when_forward = np.cumsum(aim)[forward]
+aim_changes = aim_when_forward * amount[forward]
+change_in_depth = np.sum(aim_changes)
+
+print(change_in_depth * distance_forward)
