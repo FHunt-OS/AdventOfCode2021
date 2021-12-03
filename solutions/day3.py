@@ -2,7 +2,7 @@ import numpy as np
 from itertools import count
 
 # Read data
-report = np.genfromtxt("day3_data.txt", dtype=np.int_, delimiter=1)
+report = np.genfromtxt("data/day3.txt", dtype=np.int_, delimiter=1)
 
 # Part 1
 gamma = np.sum(report, axis=0) > (report.shape[0] / 2)

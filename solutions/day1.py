@@ -1,4 +1,4 @@
-from day1_data import data
+from data.day1 import data
 import numpy as np
 
 distance = np.array(data).astype(np.float64)
